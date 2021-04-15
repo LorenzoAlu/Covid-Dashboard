@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat&display=swap" rel="stylesheet">
+    <title>Covid DashBoard</title>
+</head>
+
+<body>
+
+    <div class="modal-custom">
+        <div class="modal-custom-content">
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>Covid DashBoard</h1>
+                <p>Dati aggiornali al: <span id="lastDate"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- first 4 card  -->
+
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-12 col-md-2 my-3">
+                <div id="cardTotal" class="card-custom p-3 rounded-3">
+                    <p class="text-start">Casi Totali:</p>
+                    <p class="text-end "><span id="casiTotali"></span></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-2 my-3 ">
+                <div class="card-custom p-3 rounded-3">
+                    <p class="text-start">Guariti Totali:</p>
+                    <p class="text-end "><span id="totaleGuariti"></span></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-2 my-3 ">
+                <div class="card-custom p-3 rounded-3">
+                    <p class="text-start">Morti Totali:</p>
+                    <p class="text-end "><span id="mortiTotali"></span></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-2 my-3 ">
+                <div class="card-custom p-3 rounded-3">
+                    <p class="text-start">Attualmente Positivi:</p>
+                    <p class="text-end "><span id="totalePositivi"></span></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-2 my-3 h-100">
+                <div class="card-custom p-3 rounded-3">
+                    <p class="text-start">Totale Vaccinati:</p>
+                    <p class="text-end "><span id="TotVaccini"></span></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-2 my-3 ">
+                <div class="card-custom p-3 rounded-3">
+                    <p class="text-start">Percentuale Vaccinati:</p>
+                    <p class="text-end "><span id="PercVaccini"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- second section  -->
+
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-12 text-center my-5">
+                <h3>Nuovi Positivi Per Regione</h3>
+            </div>
+
+            <div class="col-12 col-md-6 my-3">
+                <div id="cardWrapper" class="row scrollable justify-content-evenly">
+
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 my-3">
+                <div id="progressWrapper" class="row scrollable">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+
+
+    <script src="./main.js"></script>
+
+
+</body>
+
+</html>
