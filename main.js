@@ -54,8 +54,8 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
             bar.innerHTML =
                 `
         <p>${el.denominazione_regione}: ${el.nuovi_positivi}</p>
-        <div class="progress">
-            <div class="progress-bar bg-primary" style="width:${100 * (el.nuovi_positivi / maxValue)}%">
+        <div class="progress mb-4">
+            <div class="progress-bar bg-main" style="width:${100 * (el.nuovi_positivi / maxValue)}%">
 
             </div>
         </div>
@@ -152,14 +152,14 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
 
                 })
             })
-                //Funzione per chiudere la modale
-                window.addEventListener('click', function (e) {
-                    if (e.target == modal)
-                        modal.classList.remove('active')
-                })
+            //Funzione per chiudere la modale
+            window.addEventListener('click', function (e) {
+                if (e.target == modal)
+                    modal.classList.remove('active')
+            })
         })
 
-        
+
         //funzione custom che fa la differenza fra el[1] e el[0] per tutto l'arrey
         function SingleData(array) {
             let final = [array[0]]
@@ -171,9 +171,9 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
         }
 
         //definisco nuova modale che si attiva alla pressione delle card
-        let cardTotal=document.querySelector('#cardTotal')
+        let cardTotal = document.querySelector('#cardTotal')
 
-        cardTotal.addEventListener('click', ()=>{
+        cardTotal.addEventListener('click', () => {
             modal.classList.add('active')
             modalContent.innerHTML =
         `
@@ -185,25 +185,25 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
                  </div>
              </div>
         `
-        //definisco nuovi positivi al giorno
-        let days =Array.from(new Set(sorted.map(el=>el.data))).reverse()
-        let dataCardTotalForDays= days.map(el=>[el, sorted.filter(x=>x.data == el).map(y=>y.nuovi_positivi).reduce((t,n)=>t+n)])
-        let MaxdataCardTotalForDays=Math.max(...dataCardTotalForDays.map(el=>el[1]))
+            //definisco nuovi positivi al giorno
+            let days = Array.from(new Set(sorted.map(el => el.data))).reverse()
+            let dataCardTotalForDays = days.map(el => [el, sorted.filter(x => x.data == el).map(y => y.nuovi_positivi).reduce((t, n) => t + n)])
+            let MaxdataCardTotalForDays = Math.max(...dataCardTotalForDays.map(el => el[1]))
 
-        dataCardTotalForDays.forEach((el,index)=>{
-            let CardTotalCol = document.createElement('div')
-            CardTotalCol.classList.add('d-inline-block', 'pinNew')
-            CardTotalCol.style.height = `${(dataCardTotalForDays[index][1]/MaxdataCardTotalForDays)*100}%`
+            dataCardTotalForDays.forEach((el, index) => {
+                let CardTotalCol = document.createElement('div')
+                CardTotalCol.classList.add('d-inline-block', 'pinNew')
+                CardTotalCol.style.height = `${(dataCardTotalForDays[index][1] / MaxdataCardTotalForDays) * 100}%`
 
-            TrendCardTotal.appendChild(CardTotalCol)
+                TrendCardTotal.appendChild(CardTotalCol)
 
-        }
-        
-        )
+            }
 
-        
+            )
+
+
         })
-       
+
     })
 
 //faccio il fetch ddel json dei vaccini
@@ -223,5 +223,47 @@ fetch('https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/
         let percVax = ((totalVax / peopleItaly) * 100).toFixed(2)
         const percVaccini = document.querySelector('#PercVaccini')
         percVaccini.innerHTML = percVax + '%'
+
+        //definisco modale per numero vaccinati che contiene tutti i dati per regione
+        let AllDataVax = Array.from(new Set(data.data))
+        let cardVaxT = document.querySelector('#cardVaxT')
+
+        //ridefinisco le modali perche sono in un altro scope
+        const modal = document.querySelector('.modal-custom')
+        const modalContent = document.querySelector('.modal-custom-content')
+
+        cardVaxT.addEventListener('click', () => {
+            modal.classList.add('active')
+            modalContent.innerHTML=
+            `
+            <div id="VaxModalContent" class="row">
+                
+            </div>
+            `
+
+            AllDataVax.forEach(el=>{
+                let cardVaxModal= document.createElement('div')
+                cardVaxModal.classList.add('col-12','col-md-4','my-3')
+                cardVaxModal.innerHTML=
+                `
+                <div class="card-custom p-4" style="height:300px">
+                    <h4>${el.nome_area}</h4>
+                    <p><strong>Dosi Somministrate</strong> ${el.dosi_somministrate} </p>
+                    <p><strong>Dosi consegnate</strong> ${el.dosi_consegnate} </p>
+                    <p><strong>Percentuale Somministrazione</strong> ${el.percentuale_somministrazione}% </p>
+                </div>
+                `
+                VaxModalContent.appendChild(cardVaxModal)
+            })
+
+            //Funzione per chiudere la modale
+            window.addEventListener('click', function (e) {
+                if (e.target == modal)
+                    modal.classList.remove('active')
+            })
+
+        })
+
+        console.log(AllDataVax)
 
     })

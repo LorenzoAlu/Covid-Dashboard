@@ -17,6 +17,14 @@ h1, h2, h3, h4, h5 {
     --secondary-color: #F80000;
 }
 
+.bg-main{
+    background-color: var(--main-color)!important;
+}
+
+.bg-secondary{
+    background-color: var(--secondary-color);
+}
+
 .card-custom {
     border: 2px solid var(--main-color);
     transition: 1s;
