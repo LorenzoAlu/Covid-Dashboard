@@ -39,20 +39,20 @@
                     <p class="text-end "><span id="casiTotali"></span></p>
                 </div>
             </div>
-            <div class="col-12 col-md-2 my-3 ">
+            <div id="cardRecovered" class="col-12 col-md-2 my-3 ">
                 <div class="card-custom p-3 rounded-3">
                     <p class="text-start">Guariti Totali:</p>
                     <p class="text-end "><span id="totaleGuariti"></span></p>
                 </div>
             </div>
-            <div class="col-12 col-md-2 my-3 ">
+            <div id="cardDeath" class="col-12 col-md-2 my-3 ">
                 <div class="card-custom p-3 rounded-3">
                     <p class="text-start">Morti Totali:</p>
                     <p class="text-end "><span id="mortiTotali"></span></p>
                 </div>
             </div>
             <div class="col-12 col-md-2 my-3 ">
-                <div class="card-custom p-3 rounded-3">
+                <div id="cardIllness" class="card-custom p-3 rounded-3">
                     <p class="text-start">Attualmente Positivi:</p>
                     <p class="text-end "><span id="totalePositivi"></span></p>
                 </div>
@@ -64,9 +64,9 @@
                 </div>
             </div>
             <div class="col-12 col-md-2 my-3 ">
-                <div class="card-custom p-3 rounded-3">
-                    <p class="text-start">Percentuale Vaccinati:</p>
-                    <p class="text-end "><span id="PercVaccini"></span></p>
+                <div id="cardTamponi" class="card-custom p-3 rounded-3">
+                    <p class="text-start">Totale Tamponi:</p>
+                    <p class="text-end "><span id="TotTamponi"></span></p>
                 </div>
             </div>
         </div>
@@ -94,11 +94,37 @@
         </div>
     </div>
 
-   
+<!-- primo chard  -->
+
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-12 text-center">
+               <h2 class="my-4">Chard Contagi Totali</h2>
+            <div id="chartdiv"></div>
+           </div>
+       </div>
+   </div>
+
+<!-- secondo chard -->
 
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="my-4">Chard Deceduti Per Regione</h2>
+         <div id="chartdiv2"></div>
+        </div>
+    </div>
+</div>
 
     <script src="./main.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="./char.js"></script>
+    <script src="./char2.js"></script>
+
 
 
 </body>

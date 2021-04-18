@@ -7,6 +7,7 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
         let lastUpdate = sorted[0].data
         let lastUpdateFormat = lastUpdate.split("T")[0].split("-").reverse().join("/")
         const lastDate = document.querySelector('#lastDate')
+        let days = Array.from(new Set(sorted.map(el => el.data))).reverse()
         lastDate.innerHTML = lastUpdateFormat
 
         //filtro dati per ottenere gli ultimi dati della regione
@@ -16,6 +17,12 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
         let totalCases = lastDay.map(el => el.totale_casi).reduce((n, t) => n + t)
         const casiTotali = document.querySelector('#casiTotali')
         casiTotali.innerHTML = totalCases
+
+        //trovo totale tamponi effettuati
+        let TamponiTot = lastDay.map(el => el.tamponi).reduce((n, t) => n + t)
+        const TotTamponi= document.querySelector('#TotTamponi')
+        TotTamponi.innerHTML = TamponiTot
+
 
         //trovo i guariti totali
         let totalHealty = lastDay.map(el => el.dimessi_guariti).reduce((n, t) => n + t)
@@ -66,7 +73,6 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
         //definisco la modale e il suo contenuto
         const modal = document.querySelector('.modal-custom')
         const modalContent = document.querySelector('.modal-custom-content')
-        console.log(lastDay)
 
         //definisco contenuto delle varie modali
         document.querySelectorAll('[data-region').forEach(el => {
@@ -75,7 +81,6 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
 
                 modal.classList.add('active')
                 let regionData = lastDay.filter(el => el.denominazione_regione === region)[0]
-                console.log(region)
 
                 modalContent.innerHTML =
                     `
@@ -117,8 +122,6 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
                 let TrendData = sorted.map(el => el).filter(el => el.denominazione_regione == region).filter(el => [el.data, el.nuovi_positivi, el.deceduti, el.dimessi_guariti]).reverse()
                 let TrendDeathDiff = SingleData(TrendData.map(el => el.deceduti))
                 let TrendRecoveredDiff = SingleData(TrendData.map(el => el.dimessi_guariti))
-
-                console.log(TrendData)
 
 
                 //definisco valore max dei grafici
@@ -186,7 +189,6 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
              </div>
         `
             //definisco nuovi positivi al giorno
-            let days = Array.from(new Set(sorted.map(el => el.data))).reverse()
             let dataCardTotalForDays = days.map(el => [el, sorted.filter(x => x.data == el).map(y => y.nuovi_positivi).reduce((t, n) => t + n)])
             let MaxdataCardTotalForDays = Math.max(...dataCardTotalForDays.map(el => el[1]))
 
@@ -196,12 +198,122 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
                 CardTotalCol.style.height = `${(dataCardTotalForDays[index][1] / MaxdataCardTotalForDays) * 100}%`
 
                 TrendCardTotal.appendChild(CardTotalCol)
+            })
+        })
 
-            }
+        //definisco modale guariti 
+        let cardRecovered =document.querySelector('#cardRecovered')
 
-            )
+        cardRecovered.addEventListener('click', () => {
+            modal.classList.add('active')
+            modalContent.innerHTML =
+        `
+             <div class="row">
+                 <div class="col-12">
+                     <p>Casi Guariti Giornalieri</p>
+                     <div id="TrendCardRecovered" class="d-flex align-items-end border border-dark mt-5 plot">
+                     </div>
+                 </div>
+             </div>
+        `
+            //definisco nuovi positivi al giorno
+            let dataCardRecoveredForDays = SingleData(days.map(el => [el, sorted.filter(x => x.data == el).map(y => y.dimessi_guariti).reduce((t, n) => t + n)]).map(el=>el[1]))
+            let MaxdataCardRecoveredForDays = Math.max(...dataCardRecoveredForDays)
+
+            dataCardRecoveredForDays.forEach((el) => {
+                let CardRecoveredCol = document.createElement('div')
+                CardRecoveredCol.classList.add('d-inline-block', 'pinRecovered')
+                CardRecoveredCol.style.height = `${(el / MaxdataCardRecoveredForDays) * 100}%`
+
+                TrendCardRecovered.appendChild(CardRecoveredCol)
+            })
+        })
+
+        //definisco modale morti for days
+        let cardDeath =document.querySelector('#cardDeath')
+
+        cardDeath.addEventListener('click', () => {
+            modal.classList.add('active')
+            modalContent.innerHTML =
+        `
+             <div class="row">
+                 <div class="col-12">
+                     <p>Morti Giornalieri</p>
+                     <div id="TrendcardDeath" class="d-flex align-items-end border border-dark mt-5 plot">
+                     </div>
+                 </div>
+             </div>
+        `
+            //definisco nuovi positivi al giorno
+            let datacardDeathForDays = SingleData(days.map(el => [el, sorted.filter(x => x.data == el).map(y => y.deceduti).reduce((t, n) => t + n)]).map(el=>el[1]))
+            let MaxdatacardDeathForDays = Math.max(...datacardDeathForDays)
 
 
+            datacardDeathForDays.forEach((el) => {
+                let cardDeathCol = document.createElement('div')
+                cardDeathCol.classList.add('d-inline-block', 'pinDeath')
+                cardDeathCol.style.height = `${(el / MaxdatacardDeathForDays) * 100}%`
+
+                TrendcardDeath.appendChild(cardDeathCol)
+            })
+        })
+
+        //definisco modale nuovi positivi per days
+        let cardIllness =document.querySelector('#cardIllness')
+
+        cardIllness.addEventListener('click', () => {
+            modal.classList.add('active')
+            modalContent.innerHTML =
+        `
+             <div class="row">
+                 <div class="col-12">
+                     <p>Nuovi Positivi Giornalieri</p>
+                     <div id="TrendcardIllness" class="d-flex align-items-end border border-dark mt-5 plot">
+                     </div>
+                 </div>
+             </div>
+        `
+            //definisco nuovi positivi al giorno
+            let datacardIllnessForDays = SingleData(days.map(el => [el, sorted.filter(x => x.data == el).map(y => y.deceduti).reduce((t, n) => t + n)]).map(el=>el[1]))
+            let MaxdatacardIllnessForDays = Math.max(...datacardIllnessForDays)
+
+
+            datacardIllnessForDays.forEach((el) => {
+                let cardIllnessCol = document.createElement('div')
+                cardIllnessCol.classList.add('d-inline-block', 'pinNew')
+                cardIllnessCol.style.height = `${(el / MaxdatacardIllnessForDays) * 100}%`
+
+                TrendcardIllness.appendChild(cardIllnessCol)
+            })
+        })
+
+        //definisco modale tanponi per days
+        let cardTamponi =document.querySelector('#cardTamponi')
+
+        cardTamponi.addEventListener('click', () => {
+            modal.classList.add('active')
+            modalContent.innerHTML =
+        `
+             <div class="row">
+                 <div class="col-12">
+                     <p>Nuovi Tamponi Giornalieri</p>
+                     <div id="TrendcardTamponi" class="d-flex align-items-end border border-dark mt-5 plot">
+                     </div>
+                 </div>
+             </div>
+        `
+            //definisco nuovi positivi al giorno
+            let datacardTamponiForDays = SingleData(days.map(el => [el, sorted.filter(x => x.data == el).map(y => y.tamponi).reduce((t, n) => t + n)]).map(el=>el[1]))
+            let MaxdatacardTamponiForDays = Math.max(...datacardTamponiForDays)
+
+
+            datacardTamponiForDays.forEach((el) => {
+                let cardTamponiCol = document.createElement('div')
+                cardTamponiCol.classList.add('d-inline-block', 'pinRecovered')
+                cardTamponiCol.style.height = `${(el / MaxdatacardTamponiForDays) * 100}%`
+
+                TrendcardTamponi.appendChild(cardTamponiCol)
+            })
         })
 
     })
@@ -218,11 +330,7 @@ fetch('https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/
         let totVaccini = document.querySelector('#TotVaccini')
         totVaccini.innerHTML = totalVax
 
-        //trovo percentuale vaccinati
-        const peopleItaly = 59641488
-        let percVax = ((totalVax / peopleItaly) * 100).toFixed(2)
-        const percVaccini = document.querySelector('#PercVaccini')
-        percVaccini.innerHTML = percVax + '%'
+      
 
         //definisco modale per numero vaccinati che contiene tutti i dati per regione
         let AllDataVax = Array.from(new Set(data.data))
@@ -236,10 +344,19 @@ fetch('https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/
             modal.classList.add('active')
             modalContent.innerHTML=
             `
+            <div class="text-center">               
+            <h2> Percentuale Popolazione Vaccinata <span id="PercVaccini"></span></h2>
+            </div>
             <div id="VaxModalContent" class="row">
                 
             </div>
             `
+
+             //trovo percentuale vaccinati
+            const peopleItaly = 59641488
+            let percVax = ((totalVax / peopleItaly) * 100).toFixed(2)
+            let percVaccini = document.querySelector('#PercVaccini')
+            percVaccini.innerHTML = percVax + '%'
 
             AllDataVax.forEach(el=>{
                 let cardVaxModal= document.createElement('div')
@@ -264,6 +381,5 @@ fetch('https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/
 
         })
 
-        console.log(AllDataVax)
 
     })
