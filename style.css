@@ -59,6 +59,8 @@ h1, h2, h3, h4, h5 {
 .scrollable {
     overflow-y: auto;
     height: 400px;
+    /* scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG); */
 }
 
 .modal-custom{
@@ -160,3 +162,39 @@ h1, h2, h3, h4, h5 {
     width: 100%;
     height: 500px;
   }
+
+.sticy{
+    overflow-y: scroll;
+    height: 500px;
+    
+}
+ 
+/* scroolbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   }
+   ::-webkit-scrollbar-thumb {
+    background: linear-gradient(13deg, #f5989b 14%,#ed4757 64%);
+    border-radius: 11px;
+   }
+   ::-webkit-scrollbar-thumb:hover{
+    background: linear-gradient(13deg, #f5989b 14%,#ff8791 64%);
+   }
+   ::-webkit-scrollbar-track{
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
+   }
+
+   input[type='range']::-webkit-slider-thumb {
+    background: var(--secondary-color);
+  }
+
+  input[type='range']::-webkit-slider-thumb:active {
+    background: var(--secondary-color);
+  }
+
+
+  
+  

@@ -17,6 +17,7 @@ console.log(lastDayDataDeath)
 am4core.ready(function() {
 
     // Themes begin
+    am4core.useTheme(am4themes_dataviz);
     am4core.useTheme(am4themes_animated);
     // Themes end
     
@@ -39,6 +40,6 @@ am4core.ready(function() {
     pieSeries.hiddenState.properties.endAngle = -90;
     pieSeries.hiddenState.properties.startAngle = -90;
     
-    }); // end am4core.ready()
+    }); 
 
 })
