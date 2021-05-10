@@ -345,7 +345,7 @@ fetch('https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/
             modalContent.innerHTML=
             `
             <div class="text-center">               
-            <h2> Percentuale Popolazione Vaccinata <span id="PercVaccini"></span></h2>
+            <h2> Dati Vaccini</h2>
             </div>
             <div id="VaxModalContent" class="row">
                 
@@ -353,10 +353,10 @@ fetch('https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/
             `
 
              //trovo percentuale vaccinati
-            const peopleItaly = 59641488
-            let percVax = ((totalVax / peopleItaly) * 100).toFixed(2)
-            let percVaccini = document.querySelector('#PercVaccini')
-            percVaccini.innerHTML = percVax + '%'
+            // const peopleItaly = 59641488
+            // let percVax = ((totalVax / peopleItaly) * 100).toFixed(2)
+            // let percVaccini = document.querySelector('#PercVaccini')
+            // percVaccini.innerHTML = percVax + '%'
 
             AllDataVax.forEach(el=>{
                 let cardVaxModal= document.createElement('div')

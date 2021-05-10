@@ -19,13 +19,11 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
          let tr = document.createElement('tr')
          tr.innerHTML= 
          `
-         
                      <th scope="row">${i}</th>
                      <td>${el.denominazione_regione}</td>
                      <td>${el.nuovi_positivi}</td>
                      <td>${el.dimessi_guariti}</td>
                      <td>${el.deceduti}</td>
-             
          `                    
          tableBody.appendChild(tr)
 
@@ -83,6 +81,25 @@ fetch('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-c
        region[i].style.fill = `rgba(0, 4, 243, ${regionPositive/maxPositive})`
    });
 
+
+   // creo visualizzazione dei dati all hover 
+   
+   region.forEach(el=> {
+
+        el.classList.add('.tooltip')
+      el.addEventListener('click',function() {
+
+          let tooltiptext=document.createElement('span')
+          tooltiptext.classList.add('.tooltiptext')
+          tooltiptext.innerHTML=`MERDA`
+
+          el.appendChild(tooltiptext)
+          console.log('okokok')
+
+      })
+   })
+
    //creo nuova mappa che mostri le morti totali
    
+
 })
