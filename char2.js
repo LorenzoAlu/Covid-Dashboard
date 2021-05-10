@@ -34,6 +34,21 @@ am4core.ready(function() {
     pieSeries.slices.template.stroke = am4core.color("#fff");
     pieSeries.slices.template.strokeWidth = 2;
     pieSeries.slices.template.strokeOpacity = 1;
+    pieSeries.labels.template.disabled = true;
+    pieSeries.innerRadius = am4core.percent(50)
+    // pieSeries.ticks.template.disabled= true
+
+    let label = pieSeries.createChild(am4core.Label);
+    label.horizontalCenter = "middle";
+    label.verticalCenter ="middle";
+    label.fontSize = 35 ;
+    label.text = "{values.value.sum}"
+
+
+
+
+
+
     
     // This creates initial animation
     pieSeries.hiddenState.properties.opacity = 1;
